@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MagiCar - Publier une annonce</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="#" th:href="@{/home}" class="navbar-brand">MagiCar</a>
+            <nav class="nav-links">
+                <a href="#" th:href="@{/home}" class="nav-link">Accueil</a>
+                <a href="#" th:href="@{/voitures}" class="nav-link">Nos voitures</a>
+                <a href="#" th:href="@{/voitures/publier}" class="nav-link active">Ajouter voiture</a>
+                <a href="#" th:href="@{/voitures/mes-annonces}" class="nav-link">Mes annonces</a>
+                <a href="#" th:href="@{/profile}" class="nav-link">Mon profil</a>
+                <a href="#" th:href="@{/contact}" class="nav-link">Contact</a>
+                <a href="#" th:href="@{/logout}" class="btn-outline">Se déconnecter</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">Publier une annonce</h1>
+
+        <form th:action="@{/voitures/publier}" method="post" enctype="multipart/form-data" th:object="${voiture}" class="publication-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="marque">Marque</label>
+                    <input type="text" id="marque" th:field="*{marque}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="modele">Modèle</label>
+                    <input type="text" id="modele" th:field="*{modele}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="prix">Prix (€)</label>
+                    <input type="number" id="prix" th:field="*{prix}" class="form-control" min="0" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="kilometrage">Kilométrage</label>
+                    <input type="number" id="kilometrage" th:field="*{kilometrage}" class="form-control"  min="0" step="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="carburant">Carburant</label>
+                    <select id="carburant" th:field="*{carburant}" class="form-control" required>
+                        <option value="">Carburant</option>
+                        <option value="Essence">Essence</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Électrique">Électrique</option>
+                        <option value="Hybride">Hybride</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pays">Pays de vente</label>
+                    <select id="pays" th:field="*{pays.id}" class="form-control" required>
+                        <option value="">Sélectionnez un pays</option>
+                        <option th:each="pays : ${pays}" th:value="${pays.id}" th:text="${pays.nom}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" th:field="*{description}" rows="4" class="form-control" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="photoFile" class="file-upload-label">
+                    <span class="file-upload-text">Choisir une photo</span>
+                    <input type="file" id="photoFile" name="photoFile" accept="image/*" class="file-upload-input" required>
+                </label>
+            </div>
+
+            <button type="submit" class="btn-primary">Publier l'annonce</button>
+        </form>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MagiCar. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>

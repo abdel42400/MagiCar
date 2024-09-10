@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact et Informations Légales - MagiCar</title>
+	    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header class="navbar">
+  <div class="container">
+    <a href="#" th:href="@{/home}" class="navbar-brand">MagiCar</a>
+    <nav class="nav-links">
+        <div class="nav-links-main">
+            <a href="#" th:href="@{/home}" class="nav-link">Accueil</a>
+            <a href="#" th:href="@{/voitures}" class="nav-link">Nos voitures</a>
+            <a href="#" th:href="@{/voitures/publier}" class="nav-link">Ajouter voiture</a>
+            <a href="#" th:href="@{/voitures/mes-annonces}" class="nav-link">Mes annonces</a>
+            <a href="#" th:href="@{/profile}" class="nav-link ">Mon profil</a>
+            <a href="#" th:href="@{/contact}" class="nav-link active">Contact</a>
+        </div>
+        <a href="#" th:href="@{/logout}" class="btn-outline">Se déconnecter</a>
+    </nav>
+</div>
+    </header>
+
+    <main class="container">
+        <h1>Contact et Informations Légales</h1>
+        
+        <section id="contact">
+            <h2>Nous contacter</h2>
+            <p>Téléphone : <a href="tel:0662250049">06 62 25 00 49</a></p>
+            <p>Email : <a href="mailto:abdelkarim.boussaidi@gmail.com">abdelkarim.boussaidi@gmail.com</a></p>
+        </section>
+
+        <section id="legal-info">
+            <h2>Informations Légales</h2>
+            
+            <h3>Conditions Générales d'Utilisation (CGU)</h3>
+            <p>En utilisant le site MagiCar, vous acceptez de vous conformer à nos Conditions Générales d'Utilisation. Ces conditions régissent votre utilisation de notre plateforme et définissent vos droits et responsabilités en tant qu'utilisateur.</p>
+            
+            <h3>Politique de Confidentialité</h3>
+            <p>Chez MagiCar, nous prenons très au sérieux la protection de vos données personnelles. Notre politique de confidentialité détaille les types de données que nous collectons, comment nous les utilisons, et les mesures que nous prenons pour les protéger.</p>
+            
+            <h3>Conditions de Service</h3>
+            <p>Nos conditions de service décrivent les termes selon lesquels nous fournissons notre plateforme de location de voitures. Elles incluent des informations sur le processus de réservation, les responsabilités des utilisateurs et des propriétaires, ainsi que nos politiques de paiement et d'annulation.</p>
+            
+            <h3>Mentions Légales</h3>
+            <p>MagiCar est une plateforme de mise en relation pour la location de voitures entre particuliers. Nous ne sommes pas propriétaires des véhicules proposés sur notre site. Notre rôle est de faciliter les transactions entre les propriétaires et les acheteurs.</p>
+           
+        </section>
+    </main>
+
+</body>
+</html>

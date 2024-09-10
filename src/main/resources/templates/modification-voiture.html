@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Modifier une voiture - MagiCar</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="#" th:href="@{/home}" class="navbar-brand">MagiCar</a>
+            <nav class="nav-links">
+                <a href="#" th:href="@{/home}" class="nav-link">Accueil</a>
+                <a href="#" th:href="@{/voitures}" class="nav-link">Nos voitures</a>
+                <a href="#" th:href="@{/voitures/publier}" class="nav-link">Ajouter voiture</a>
+                <a href="#" th:href="@{/voitures/mes-annonces}" class="nav-link">Mes annonces</a>
+                <a href="#" th:href="@{/profile}" class="nav-link">Mon profil</a>
+                <a href="#" th:href="@{/contact}" class="nav-link">Contact</a>
+                <a href="#" th:href="@{/logout}" class="btn-outline">Se déconnecter</a>
+            </nav>
+        </div>
+    </header>
+
+	<div class="container" role="main">
+        <h1>Modifier une voiture</h1>
+
+        <form th:action="@{/voitures/modifier/{id}(id=${voiture.id})}" th:object="${voiture}" method="post" enctype="multipart/form-data">
+            <div>
+                <label for="marque">Marque:</label>
+                <input type="text" id="marque" th:field="*{marque}" required>
+            </div>
+            <div>
+                <label for="modele">Modèle:</label>
+                <input type="text" id="modele" th:field="*{modele}" required>
+            </div>
+            <div>
+                <label for="prix">Prix:</label>
+                <input type="number" id="prix" th:field="*{prix}" required>
+            </div>
+            <div>
+                <label for="carburant">Carburant:</label>
+                <input type="text" id="carburant" th:field="*{carburant}" required>
+            </div>
+            <div>
+                <label for="kilometrage">Kilométrage:</label>
+                <input type="number" id="kilometrage" th:field="*{kilometrage}" required>
+            </div>
+            <div>
+                <label for="photoFile">Photo de la voiture:</label>
+                <input type="file" id="photoFile" name="photoFile" accept="image/*">
+                <span th:if="${photoError}" class="error-message" th:text="${photoError}"></span>
+            </div>
+            <div>
+                <label for="description">Description:</label>
+                <textarea id="description" th:field="*{description}"></textarea>
+            </div>
+            <div>
+                <label for="pays">Pays:</label>
+                <select id="pays" th:field="*{pays.id}" required>
+                    <option th:each="p : ${pays}" th:value="${p.id}" th:text="${p.nom}"></option>
+                </select>
+            </div>
+            <button type="submit">Valider les modifications</button>
+            <a class="btn-annuler" th:href="@{/voitures/mes-annonces}">Annuler</a>
+        </form>
+    </div>
+
+    <script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        var photoFile = document.getElementById('photoFile');
+        if (photoFile.files.length === 0 && !confirm('Aucune nouvelle photo n\'a été sélectionnée. Voulez-vous continuer avec l\'ancienne photo ?')) {
+            e.preventDefault();
+        }
+    });
+    </script>
+</body>
+</html>
+	

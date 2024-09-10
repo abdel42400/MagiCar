@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MagiCar - Accueil</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="navbar-brand">MagiCar</a>
+            <div class="nav-links">
+                <a href="/login" class="nav-link">Se connecter</a>
+                <a href="/register" class="nav-link">S'inscrire</a>
+            </div>
+        </div>
+    </nav>
+
+    <main role="main">
+        <section class="hero">
+            <div class="container">
+                <h1>Bienvenue sur MagiCar</h1>
+                <p>Découvrez notre service de ventes de voitures magique ! Connectez-vous ou inscrivez-vous pour explorer nos offres exceptionnelles.</p>
+                <a href="/login" class="btn-primary" id="startAdventure">Commencer l'aventure</a>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h2>Voitures Uniques</h2>
+                        <p>Trouvez des voitures avec des caractéristiques magiques introuvables ailleurs.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h2>Service 5 Étoiles</h2>
+                        <p>Notre équipe de sorciers est là pour vous assister à chaque étape.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="rgpdPopup" class="rgpd-popup">
+        <div class="rgpd-content">
+            <h2 class="rgpd-title">Paramètres des cookies</h2>
+            <p class="rgpd-text">Nous utilisons des cookies pour améliorer votre expérience sur notre site. Veuillez choisir vos préférences ci-dessous.</p>
+            <div class="cookie-options">
+                <label class="cookie-option">
+                    <input type="checkbox" id="essentialCookies" checked disabled> Cookies essentiels (obligatoires)
+                </label>
+                <label class="cookie-option">
+                    <input type="checkbox" id="analyticsCookies"> Cookies d'analyse
+                </label>
+                <label class="cookie-option">
+                    <input type="checkbox" id="marketingCookies"> Cookies de marketing
+                </label>
+            </div>
+            <div class="rgpd-actions">
+                <button class="btn-secondary" onclick="saveCookiePreferences(false)">Tout refuser</button>
+                <button class="btn-primary" onclick="saveCookiePreferences(true)">Tout accepter</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            if (!localStorage.getItem('cookiePreferences')) {
+                document.getElementById('rgpdPopup').style.display = 'block';
+            }
+        }
+
+        function saveCookiePreferences(acceptAll) {
+            let preferences = {
+                essential: true,  // Toujours true car obligatoire
+                analytics: acceptAll,
+                marketing: acceptAll
+            };
+
+            if (!acceptAll) {
+                // Si l'utilisateur n'a pas tout accepté, on prend en compte ses choix individuels
+                preferences.analytics = document.getElementById('analyticsCookies').checked;
+                preferences.marketing = document.getElementById('marketingCookies').checked;
+            }
+
+            localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+            closeRgpdPopup();
+        }
+
+        function closeRgpdPopup() {
+            document.getElementById('rgpdPopup').style.display = 'none';
+        }
+
+        // Fonction pour récupérer les préférences (à utiliser lorsque vous avez besoin de vérifier les autorisations)
+        function getCookiePreferences() {
+            let preferences = localStorage.getItem('cookiePreferences');
+            return preferences ? JSON.parse(preferences) : null;
+        }
+    </script>
+</body>
+</html>

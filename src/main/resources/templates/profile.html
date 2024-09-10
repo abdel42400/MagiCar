@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Profil - MagiCar</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<nav class="navbar">
+		<div class="container">
+			<a class="navbar-brand" th:href="@{/home}">MagiCar</a>
+			<div class="nav-links-main">
+				<a class="nav-link" th:href="@{/home}">Accueil</a> <a
+					class="nav-link" th:href="@{/voitures}">Nos voitures</a> <a
+					class="nav-link" th:href="@{/voitures/publier}">Ajouter voiture</a>
+				<a class="nav-link" th:href="@{/voitures/mes-annonces}">Mes
+					annonces</a> <a class="nav-link active" th:href="@{/profile}">Mon
+					profil</a> <a class="nav-link" th:href="@{/contact}">Contact</a>
+			</div>
+			<a class="btn-outline" th:href="@{/logout}">Se déconnecter</a>
+		</div>
+	</nav>
+
+	<main class="container" role="main">
+        <h2>Mon Profil</h2>
+
+        <div class="success-message" th:if="${successMessage}" th:text="${successMessage}"></div>
+        <div class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+        <div id="editForm" class="edit-form" th:if="${utilisateur}">
+            <h3>Modifier mes informations</h3>
+            <form th:action="@{/profile/update}" method="post" th:object="${utilisateur}">
+                <input type="hidden" th:field="*{id}" />
+                
+                <div class="form-group">
+                    <label>Adresse e-mail:</label>
+                    <p th:text="*{mail}" class="form-control-plaintext"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="adresse">Adresse:</label>
+                    <input type="text" id="adresse" th:field="*{adresse}" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="numero">Numéro de téléphone:</label>
+                    <input type="tel" id="numero" th:field="*{numero}" class="form-control" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+            </form>
+        </div>
+
+		<form id="changePasswordForm" class="change-password-form"
+			th:action="@{/profile/change-password}" method="post">
+			<h3>Changer le mot de passe</h3>
+
+			<div class="form-group">
+				<label for="currentPassword">Mot de passe actuel:</label> <input
+					type="password" id="currentPassword" name="currentPassword"
+					required>
+			</div>
+
+			<div class="form-group">
+				<label for="newPassword">Nouveau mot de passe:</label> <input
+					type="password" id="newPassword" name="newPassword" required>
+				<small class="form-text text-muted">Le nouveau mot de passe
+					doit contenir au moins 8 caractères, une majuscule, une minuscule,
+					un chiffre et un caractère spécial.</small>
+			</div>
+
+			<div class="form-group">
+				<label for="confirmPassword">Confirmer le nouveau mot de
+					passe:</label> <input type="password" id="confirmPassword"
+					name="confirmPassword" required>
+			</div>
+
+			<button type="submit" class="btn-primary">Changer le mot de
+				passe</button>
+		</form>
+
+		<div th:unless="${utilisateur}">Impossible de charger les
+			informations du profil.</div>
+	</main>
+
+	<script>
+		document
+				.getElementById('changePasswordForm')
+				.addEventListener(
+						'submit',
+						function(e) {
+							var newPassword = document
+									.getElementById('newPassword').value;
+							var confirmPassword = document
+									.getElementById('confirmPassword').value;
+
+							// Vérification de la complexité du mot de passe
+							var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+							if (!passwordRegex.test(newPassword)) {
+								e.preventDefault();
+								alert("Le nouveau mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
+								return;
+							}
+
+							// Vérification de la correspondance des mots de passe
+							if (newPassword !== confirmPassword) {
+								e.preventDefault();
+								alert("Les nouveaux mots de passe ne correspondent pas.");
+								return;
+							}
+						});
+	</script>
+</body>
+</html>
